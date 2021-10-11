@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
 def DiscretisedColormap(CmapName_str, Ncolors_int=11, will_print=True):
     """
     ========================================== Parameters ==========================================
@@ -21,6 +20,14 @@ def DiscretisedColormap(CmapName_str, Ncolors_int=11, will_print=True):
 
     cmap = cm.get_cmap(CmapName_str)
     all_cols_str = ""
+
+    if cmap.N < Ncolors_int:
+        msg = ("The number of elements ("+str(cmap.N)
+               + ") in the colormap is smaller than the number ("+str(Ncolors_int)
+               + ") of colors you want to extract from it, there is duplicates in the list.")
+    else:
+        msg = "Done"
+
     # ======================================= Discretisation =======================================
     for n in range(Ncolors_int):  # Looping through the number of colors to extract from colormap
         idx = int(round(n*(cmap.N-1)/(Ncolors_int-1)))  # Index of the color to extract
@@ -39,5 +46,7 @@ def DiscretisedColormap(CmapName_str, Ncolors_int=11, will_print=True):
     # =========================================== Result ===========================================
     if will_print is True:
         print(all_cols_str)
+        print(msg)
     else:
+        print(msg)
         return all_cols_str
